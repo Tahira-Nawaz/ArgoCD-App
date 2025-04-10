@@ -27,12 +27,24 @@ spec:
         - name: DB_DATABASE
           value: "testdb"  # The database name
 ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: my-php-service
+#   annotations:
+#     service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+# spec:
+#   selector:
+#     app: my-php-app
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 80
+#   type: LoadBalancer
 apiVersion: v1
 kind: Service
 metadata:
   name: my-php-service
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "false"
 spec:
   selector:
     app: my-php-app
@@ -40,4 +52,6 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer
+      nodePort: 30081  
+  type: NodePort
+
