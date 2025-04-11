@@ -211,7 +211,7 @@ Offering you additional revision if any chnage is require..!
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
-                        <form id="contactForm"  method="POST" action="a.php" enctype="multipart/form-data">
+                        <form id="contactForm"  method="POST" action="formconnection.php" enctype="multipart/form-data">
                             <!-- Name input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="name" type="text" name="First_name" placeholder="Enter your name..." data-sb-validations="required" />
