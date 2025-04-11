@@ -7,42 +7,37 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Database connection details
-$server = "my-mysql"; 
-$database = "testdb"; 
-$username = "myuser"; 
-$password = "mypassword"; 
+$server = "my-mysql"; // MySQL server hostname or IP address
+$database = "testdb";  // Your database name
+$username = "myuser";  // Your MySQL username
+$password = "mypassword"; // Your MySQL password
 
-// Connection options for SQL Server
-$connectionInfo = array( "Database"=>$database, "UID"=>$username, "PWD"=>$password);
-$con = sqlsrv_connect($server, $connectionInfo);
+// Create a connection using MySQLi
+$conn = new mysqli($server, $username, $password, $database);
 
 // Check if the connection was successful
-if (!$con) {
-    die("Connection failed: " . print_r(sqlsrv_errors(), true));
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 } else {
     echo "Connection successful.<br>";
 }
 
 // Create table if it doesn't exist
 $tableCreateQuery = "
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'formas3')
-BEGIN
-    CREATE TABLE formas3 (
-        ID INT IDENTITY(1,1) PRIMARY KEY,
-        First_name NVARCHAR(100) NOT NULL,
-        Email_id NVARCHAR(255) NOT NULL,
-        Telephone_Number NVARCHAR(20) NOT NULL,
-        comments NVARCHAR(MAX) NOT NULL,
-        created_at DATETIME DEFAULT GETDATE()
-    );
-END;
+CREATE TABLE IF NOT EXISTS formas3 (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    First_name VARCHAR(100) NOT NULL,
+    Email_id VARCHAR(255) NOT NULL,
+    Telephone_Number VARCHAR(20) NOT NULL,
+    comments TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ";
 
-$tableCreateStmt = sqlsrv_query($con, $tableCreateQuery);
-if ($tableCreateStmt === false) {
-    die("Error creating table: " . print_r(sqlsrv_errors(), true));
+if ($conn->query($tableCreateQuery) === TRUE) {
+    echo "Table checked/created successfully.<br>";
 } else {
-    echo "Table check/creation successful.<br>";
+    echo "Error creating table: " . $conn->error . "<br>";
 }
 
 // Validate POST data
@@ -60,25 +55,24 @@ if (empty($Fname) || empty($F) || empty($E) || empty($R)) {
 // Output the received values
 echo "Your response is submitted successfully😀😀😀.<br>";
 echo "<h2>Your Contact Information</h2>";
-echo "Name: " . $Fname . "<br>";
-echo "Email: " . $F . "<br>";
-echo "Telephone Number: " . $E . "<br>";
-echo "Comments: " . $R . "<br><br>";
+echo "Name: " . htmlspecialchars($Fname) . "<br>";
+echo "Email: " . htmlspecialchars($F) . "<br>";
+echo "Telephone Number: " . htmlspecialchars($E) . "<br>";
+echo "Comments: " . htmlspecialchars($R) . "<br><br>";
 
 // Insert data into the database using prepared statements
-$sql = "INSERT INTO formas3 (First_name, Email_id, Telephone_Number, comments) VALUES (?, ?, ?, ?)";
-$params = array($Fname, $F, $E, $R);
-$stmt = sqlsrv_query($con, $sql, $params);
+$stmt = $conn->prepare("INSERT INTO formas3 (First_name, Email_id, Telephone_Number, comments) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $Fname, $F, $E, $R);
 
-if ($stmt === false) {
-    echo "Error inserting into table: " . print_r(sqlsrv_errors(), true) . "<br>";
-} else {
+if ($stmt->execute()) {
     echo "<h2>Kindly Confirm your details👀</h2>Thanks...!<br>";
+} else {
+    echo "Error inserting data: " . $stmt->error . "<br>";
 }
 
 // Close the statement and connection
-sqlsrv_free_stmt($stmt);
-sqlsrv_close($con);
+$stmt->close();
+$conn->close();
 
 ?>
 </body>
