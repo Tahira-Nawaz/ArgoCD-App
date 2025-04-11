@@ -7,10 +7,10 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Database connection details
-$server = "tcp:tahira-sql-server.mysql.database.azure.com,1433"; 
-$database = "tahira-sql-database"; 
-$username = "pxxjxlukdz"; 
-$password = "@bajwa123456789"; 
+$server = "my-mysql"; 
+$database = "testdb"; 
+$username = "myuser"; 
+$password = "mypassword"; 
 
 // Connection options for SQL Server
 $connectionInfo = array( "Database"=>$database, "UID"=>$username, "PWD"=>$password);
