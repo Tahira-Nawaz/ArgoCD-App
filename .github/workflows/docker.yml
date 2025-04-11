@@ -17,8 +17,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t tahira/php-webapp:${{ github.sha }} .
-          docker push tahira/php-webapp:${{ github.sha }}
+          docker build -t tahiranawaz/php-webapp:${{ github.sha }} .
+          docker push tahiranawaz/php-webapp:${{ github.sha }}
 
       - name: Install yq
         run: |
@@ -27,7 +27,7 @@ jobs:
 
       - name: Update Image in PHP Deployment Manifest
         run: |
-          yq e '.spec.template.spec.containers[0].image = "tahira/php-webapp:${{ github.sha }}"' -i k8s/php-deployment.yaml
+          yq e '.spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ github.sha }}"' -i k8s/php-deployment.yaml
           git config --global user.email "ci@github.com"
           git config --global user.name "GitHub CI"
           git add k8s/php-deployment.yaml
