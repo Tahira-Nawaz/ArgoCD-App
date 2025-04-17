@@ -40,3 +40,7 @@ spec:
       targetPort: 80
       nodePort: 30081 
   type: NodePort
+  template:
+    spec:
+      containers:
+        - image: tahiranawaz/php-webapp:228a14176bbcd85578d813f70636535b5523e4b4
