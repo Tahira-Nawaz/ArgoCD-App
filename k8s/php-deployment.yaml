@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-php-container
-          image: tahiranawaz/php-webapp:031cee84613d4e98e78e96b9ab9ddcbebd72c8a0
+          image: tahiranawaz/php-webapp:228a14176bbcd85578d813f70636535b5523e4b4
           ports:
             - containerPort: 80
           env:
@@ -38,7 +38,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30081 
+      nodePort: 30081
   type: NodePort
   template:
     spec:
