@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-php-app1
+  name: my-php-app
 spec:
   replicas: 1
   selector:
@@ -30,7 +30,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-php-service1
+  name: my-php-service
 spec:
   selector:
     app: my-php-app
