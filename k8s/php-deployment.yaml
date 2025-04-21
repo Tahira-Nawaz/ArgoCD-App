@@ -40,7 +40,4 @@ spec:
       protocol: TCP
       targetPort: 80
   type: NodePort
-  template:
-    spec:
-      containers:
-        - image: tahiranawaz/php-webapp:b6477ff40631633fd50e6b758b08904f436cb7be
+  

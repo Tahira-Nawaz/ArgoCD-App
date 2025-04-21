@@ -29,7 +29,8 @@ jobs:
 
       - name: Update Image in PHP Deployment Manifest
         run: |
-          yq e '.spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ github.sha }}"' -i k8s/php-deployment.yaml
+          
+          yq e 'select(.kind == "Deployment") | .spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ github.sha }}"' -i k8s/php-deployment.yaml
           git config --global user.email "ci@github.com"
           git config --global user.name "GitHub CI"
           git add k8s/php-deployment.yaml
