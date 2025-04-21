@@ -3,8 +3,8 @@ name: CI/CD for PHP Frontend with Argo CD
 on:
   push:
     branches: 
-      # - main
-      - none
+      - main
+      # - none
 
 jobs:
   deploy:
