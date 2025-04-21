@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-php-container
-          image: tahiranawaz/php-webapp:b6477ff40631633fd50e6b758b08904f436cb7be
+          image: tahiranawaz/php-webapp:7e9dd6f02c4b7205a17b302ce8bf4c42a3d4a0ca
           ports:
             - containerPort: 80
           env:
@@ -26,18 +26,3 @@ spec:
               value: "mypassword"
             - name: DB_DATABASE
               value: "testdb"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-php-service
-spec:
-  selector:
-    app: my-php-app
-  ports:
-    - nodePort: 30081
-      port: 80
-      protocol: TCP
-      targetPort: 80
-  type: NodePort
-  
