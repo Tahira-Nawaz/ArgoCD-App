@@ -4,7 +4,6 @@ on:
   push:
     branches: 
       - main
-    #  - none
 
 jobs:
   deploy:
@@ -27,24 +26,13 @@ jobs:
           sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
           sudo chmod +x /usr/bin/yq
 
-      # - name: Update Image in PHP Deployment Manifest
-      #   run: |
-      #     yq e '(.kind == "Deployment" | .spec.template.spec.containers[0].image) = "tahiranawaz/php-webapp:${{ github.sha }}"' -i k8s/php-deployment.yaml
-      #     git config --global user.email "ci@github.com"
-      #     git config --global user.name "GitHub CI"
-      #     git add k8s/php-deployment.yaml
-      #     git commit -m "Update PHP image to ${{ github.sha }}"
-      #     git push
-
       - name: Update Image in PHP Deployment Manifest
         run: |
-          yq e '(.kind == "Deployment") |= (.spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ github.sha }}")' -i k8s/php-deployment.yaml
+          yq e '(.kind == "Deployment") |= with(.spec.template.spec.containers[]; .image = "tahiranawaz/php-webapp:${{ github.sha }}")' -i k8s/php-deployment.yaml
           git diff --quiet k8s/php-deployment.yaml || {
             git config --global user.email "ci@github.com"
             git config --global user.name "GitHub CI"
             git add k8s/php-deployment.yaml
             git commit -m "Update PHP image to ${{ github.sha }}"
             git push
-          } 
-
-      
+          }
