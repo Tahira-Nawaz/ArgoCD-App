@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-php-container
-          image: tahiranawaz/php-webapp:7e9dd6f02c4b7205a17b302ce8bf4c42a3d4a0ca
+          image: tahiranawaz/php-webapp:6c9c2a350510bfd6de99102246bfe44bb1ef701d
           ports:
             - containerPort: 80
           env:
