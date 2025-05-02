@@ -17,7 +17,7 @@ jobs:
       - name: Set Custom Image Name
         id: image
         run: |
-          IMAGE_NAME="tahiranawaz/php-webapp:tahira-${{ github.sha::7 }}-$(date +%Y%m%d%H%M%S)"
+          IMAGE_NAME="tahiranawaz/php-webapp:tahira-version1-$(date +%Y%m%d%H%M%S)"
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
 
       - name: Log in to Docker Hub
