@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-php-container
-          image: tahiranawaz/php-webapp:6c9c2a350510bfd6de99102246bfe44bb1ef701d
+          image: tahiranawaz/php-webapp:tahira-version1-20250502124952
           ports:
             - containerPort: 80
           env:
@@ -26,7 +26,6 @@ spec:
               value: "mypassword"
             - name: DB_DATABASE
               value: "testdb"
----
 apiVersion: v1
 kind: Service
 metadata:
