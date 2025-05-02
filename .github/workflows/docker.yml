@@ -31,10 +31,10 @@ jobs:
 
       - name: Update Image in Deployment YAML
         run: |
-          # yq e 'select(.kind == "Deployment") |= (.spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ env.IMAGE_TAG }}")' k8s/php-deployment.yaml > tmp.yaml
-          # mv tmp.yaml k8s/php-deployment.yaml
+          yq e 'select(.kind == "Deployment") |= (.spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ env.IMAGE_TAG }}")' k8s/php-deployment.yaml > tmp.yaml
+          mv tmp.yaml k8s/php-deployment.yaml
 
-          yq e '(.kind == "Deployment") |= with(.spec.template.spec.containers[]; .image = "tahiranawaz/php-webapp:tahira-version1")' -i k8s/php-deployment.yaml
+          # yq e '(.kind == "Deployment") |= with(.spec.template.spec.containers[]; .image = "tahiranawaz/php-webapp:tahira-version1")' -i k8s/php-deployment.yaml
 
 
           git config --global user.email "ci@github.com"
