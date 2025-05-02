@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-php-container
-          image: tahiranawaz/php-webapp:tahira-version1-14795659949-23
+          image: tahiranawaz/php-webapp:tahira-version1-14795925965-25
           ports:
             - containerPort: 80
           env:
