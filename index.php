@@ -197,7 +197,7 @@ Offering you additional revision if any chnage is require..!
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6 text-center">
-                        <h2 class="mt-0">Let's Get In Touch with Tahira Nawaz!</h2>
+                        <h2 class="mt-0">Let's Get In Touch Me!</h2>
                         <hr class="divider" />
                         <p class="text-muted mb-5">Ready to start your next project with us? Send us a messages and we will get back to you as soon as possible!</p>
                     </div>
