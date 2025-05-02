@@ -29,13 +29,14 @@ jobs:
           sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
           sudo chmod +x /usr/bin/yq
 
-      - name: Update Image in Manifest
+      - name: Update Image in Deployment YAML
         run: |
-          yq e 'select(.kind == "Deployment") | .spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ env.IMAGE_TAG }}"' -i k8s/php-deployment.yaml
+          yq e 'select(.kind == "Deployment") |= (.spec.template.spec.containers[0].image = "tahiranawaz/php-webapp:${{ env.IMAGE_TAG }}")' k8s/php-deployment.yaml > tmp.yaml
+          mv tmp.yaml k8s/php-deployment.yaml
 
           git config --global user.email "ci@github.com"
           git config --global user.name "GitHub CI"
 
           git add k8s/php-deployment.yaml
-          git commit -m "Update PHP image to ${{ env.IMAGE_TAG }}" || echo "No changes to commit"
+          git commit -m "Update image to ${{ env.IMAGE_TAG }}" || echo "No changes to commit"
           git push || echo "Nothing to push"
