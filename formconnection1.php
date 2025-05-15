@@ -7,10 +7,10 @@ $server = "tcp:tahira-server.mysql.database.azure.com,1433";
 $database = "tahira-database";
 $username = "tahira";
 $password = "@bajwa123456789";
+$port = 3306;
 
-// Create a connection using MySQLi
-$conn = new mysqli($server, $username, $password, $database);
-
+// Establish MySQL connection
+$con = new mysqli($server, $username, $password, $database, $port);
 // Check if the connection was successful
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
