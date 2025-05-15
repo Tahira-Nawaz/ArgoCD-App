@@ -3,25 +3,20 @@
 
 <?php
 
-$server = "tahira-server.mysql.database.azure.com";
+$server = "tcp:tahira-server.mysql.database.azure.com,1433";
 $database = "tahira-database";
 $username = "tahira";
 $password = "@bajwa123456789";
-$ssl_ca = __DIR__ . "/certs/BaltimoreCyberTrustRoot.crt.pem"; // path to SSL cert
 
-// Initialize MySQLi connection
-$conn = mysqli_init();
+// Create a connection using MySQLi
+$conn = new mysqli($server, $username, $password, $database);
 
-// Set SSL certificate for secure connection
-mysqli_ssl_set($conn, NULL, NULL, $ssl_ca, NULL, NULL);
-
-// Connect to database with SSL
-if (!mysqli_real_connect($conn, $server, $username, $password, $database, 3306, NULL, MYSQLI_CLIENT_SSL)) {
-    die("Connection failed: " . mysqli_connect_error());
+// Check if the connection was successful
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 } else {
     echo "Connection successful.<br>";
 }
-
 
 // Create table if it doesn't exist
 $tableCreateQuery = "
