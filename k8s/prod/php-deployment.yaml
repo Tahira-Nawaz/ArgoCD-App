@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-php-app
+  name: my-php-prod-app
   namespace: default
 spec:
   replicas: 1
